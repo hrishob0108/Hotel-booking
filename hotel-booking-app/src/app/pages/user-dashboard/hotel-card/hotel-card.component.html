@@ -1,0 +1,108 @@
+<div class="hotel-card glass-card fade-in-up">
+  <!-- Hotel Image -->
+  <div class="hotel-image">
+    <img [src]="hotel.imageUrl" [alt]="hotel.name" loading="lazy" />
+    <div class="hotel-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#fbbf24">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      {{ hotel.rating }}
+    </div>
+  </div>
+
+  <!-- Hotel Info -->
+  <div class="hotel-info">
+    <div class="hotel-header">
+      <h3 class="hotel-name">{{ hotel.name }}</h3>
+      <div class="hotel-price">
+        <span class="price-amount">${{ hotel.pricePerNight }}</span>
+        <span class="price-label">/night</span>
+      </div>
+    </div>
+    <p class="hotel-description">{{ hotel.description }}</p>
+  </div>
+
+  <!-- Booking Status Messages -->
+  <div class="booking-alert success" *ngIf="bookingStatus === 'success'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <span>{{ bookingMessage }}</span>
+    <button class="dismiss-btn" (click)="dismissMessage()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="booking-alert error" *ngIf="bookingStatus === 'error'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span>{{ bookingMessage }}</span>
+    <button class="dismiss-btn" (click)="dismissMessage()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Calendar Section -->
+  <div class="calendar-section">
+    <div class="calendar-header">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>This Week</span>
+      <div class="calendar-legend">
+        <span class="legend-dot available-dot"></span><span>Available</span>
+        <span class="legend-dot unavailable-dot"></span><span>Unavailable</span>
+        <span class="legend-dot booked-dot"></span><span>Booked</span>
+      </div>
+    </div>
+
+    <div class="calendar-grid">
+      <div
+        *ngFor="let day of calendarDays"
+        [class]="getDayClass(day)"
+        [title]="day.date"
+        (click)="selectDate(day)"
+      >
+        <span class="day-label">{{ day.label }}</span>
+        <span class="day-num">{{ day.dayNum }}</span>
+        <span class="day-indicator" *ngIf="day.isToday && !day.isPast"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book It Button -->
+  <div class="book-action">
+    <p class="selected-date-text" *ngIf="selectedDate">
+      Selected: <strong>{{ selectedDate }}</strong>
+    </p>
+    <p class="selected-date-text hint" *ngIf="!selectedDate">
+      Select an available date above
+    </p>
+    <button
+      id="book-btn-{{ hotel.id }}"
+      class="btn-primary book-btn"
+      [disabled]="!selectedDate || isBooking"
+      (click)="bookIt()"
+    >
+      <span *ngIf="!isBooking">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-right:6px">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Book It
+      </span>
+      <span *ngIf="isBooking" class="loading-state">
+        <span class="spinner"></span>
+        Booking...
+      </span>
+    </button>
+  </div>
+</div>

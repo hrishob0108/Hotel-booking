@@ -1,0 +1,87 @@
+<div class="home-page">
+  <!-- Animated background -->
+  <div class="bg-gradient"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="brand">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="10" fill="url(#brandGrad)"/>
+        <path d="M7 22L16 8L25 22H7Z" fill="white" fill-opacity="0.9"/>
+        <circle cx="16" cy="17" r="3" fill="white"/>
+        <defs>
+          <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32">
+            <stop offset="0%" stop-color="#6c63ff"/>
+            <stop offset="100%" stop-color="#ff6584"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="brand-name">StayEase</span>
+    </div>
+    <div class="nav-links">
+      <a routerLink="/login" class="nav-link">Login</a>
+      <a routerLink="/signup" class="btn-primary btn-sm">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="hero">
+    <div class="hero-content">
+      <div class="badge fade-in">✨ Experience the New Way of Booking</div>
+      <h1 class="hero-title fade-in-up">
+        Your Gateway to <br/>
+        <span class="text-gradient">Luxury Stays.</span>
+      </h1>
+      <p class="hero-subtitle fade-in-up-delay">
+        Discover handpicked premium hotels and resorts worldwide. <br/>
+        Book your dream stay in seconds with our seamless platform.
+      </p>
+      <div class="hero-actions fade-in-up-delay2">
+        <button routerLink="/signup" class="btn-primary btn-lg">Explore Hotels</button>
+        <button routerLink="/login" class="btn-secondary btn-lg">View Dashboard</button>
+      </div>
+      
+      <!-- Stats or Trust markers -->
+      <div class="hero-stats fade-in-up-delay3">
+        <div class="stat-item">
+          <span class="stat-value">15+</span>
+          <span class="stat-label">Luxury Hotels</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">2.4k</span>
+          <span class="stat-label">Happy Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">4.9/5</span>
+          <span class="stat-label">Average Rating</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating UI Elements for decoration -->
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400" alt="Resort">
+        <div class="card-info">
+          <h3>Grand Azure</h3>
+          <p>⭐⭐⭐⭐⭐ (4.8)</p>
+        </div>
+      </div>
+      <div class="floating-card card-2">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="City Hotel">
+        <div class="card-info">
+          <h3>Sapphire Heights</h3>
+          <p>⭐⭐⭐⭐ (4.5)</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 StayEase. All rights reserved.</p>
+  </footer>
+</div>

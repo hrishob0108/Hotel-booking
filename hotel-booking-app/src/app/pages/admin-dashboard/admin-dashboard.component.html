@@ -1,0 +1,136 @@
+<div class="dashboard-layout">
+  <!-- Top Nav -->
+  <header class="top-nav glass-card">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="10" fill="url(#adminNavGrad)"/>
+          <path d="M7 22L16 8L25 22H7Z" fill="white" fill-opacity="0.9"/>
+          <circle cx="16" cy="17" r="3" fill="white"/>
+          <defs>
+            <linearGradient id="adminNavGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#6c63ff"/>
+              <stop offset="100%" stop-color="#ff6584"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <span class="nav-title">StayEase</span>
+    </div>
+    <div class="nav-center">
+      <h2>Admin Console</h2>
+      <p class="nav-subtitle">Booking Management</p>
+    </div>
+    <div class="nav-right">
+      <div class="user-chip">
+        <div class="user-avatar admin-avatar">{{ username[0].toUpperCase() }}</div>
+        <span class="user-name">{{ username }}</span>
+        <span class="role-badge admin-badge">ADMIN</span>
+      </div>
+      <button class="btn-secondary logout-btn" (click)="logout()" id="admin-logout-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Stats Bar -->
+    <div class="stats-bar fade-in-up">
+      <div class="stat-card glass-card">
+        <div class="stat-icon bookings-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ bookings.length }}</span>
+          <span class="stat-label">Total Bookings</span>
+        </div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon revenue-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">${{ totalRevenue.toLocaleString() }}</span>
+          <span class="stat-label">Total Revenue</span>
+        </div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon top-hotel-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/><path d="M7 7h.01"/><path d="M7 11h.01"/><path d="M7 15h.01"/><path d="M13 7h.01"/><path d="M13 11h.01"/><path d="M13 15h.01"/><path d="M17 7h.01"/><path d="M17 11h.01"/><path d="M17 15h.01"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value truncate" [title]="topHotel">{{ topHotel }}</span>
+          <span class="stat-label">Top Hotel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header fade-in-up">
+      <h1 class="page-title">Booking Report <span class="text-gradient">📋</span></h1>
+      <p class="page-subtitle">All hotel reservations across the platform.</p>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container glass-card fade-in-up">
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="bookings.length === 0">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <h3>No bookings yet</h3>
+        <p>Bookings made by users will appear here in real-time.</p>
+      </div>
+
+      <!-- Data Table -->
+      <table class="bookings-table" *ngIf="bookings.length > 0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Hotel Name</th>
+            <th>Reserved Date</th>
+            <th>Reserved For User</th>
+            <th>Amount Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings; let i = index" class="table-row">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="hotel-cell">
+              <div class="hotel-dot"></div>
+              {{ booking.hotelName }}
+            </td>
+            <td class="date-cell">{{ formatDate(booking.reservedDate) }}</td>
+            <td class="user-cell">
+              <div class="user-chip-sm">
+                <div class="mini-avatar">{{ booking.reservedForUser[0].toUpperCase() }}</div>
+                {{ booking.reservedForUser }}
+              </div>
+            </td>
+            <td class="amount-cell">
+              <span class="amount-badge">${{ booking.amountPaid.toLocaleString() }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
